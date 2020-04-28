@@ -101,6 +101,13 @@ white_picolyte={
 	["placed"]=false;
 	["replaced_by"]=nil
 }
+nayru_charm={
+	["id"]=0x2F;
+	["name"]="nayru_charm";
+	["logic"]=substitutes["bottle_locked"];
+	["placed"]=false;
+	["replaced_by"]=nil
+}
 farore_charm={
 	["id"]=0x30;
 	["name"]="farore_charm";
@@ -121,6 +128,25 @@ contents = {
 	mountain_dew;
 	milk_half;
 	fairy;
+	farore_charm;
+	din_charm;
+	butter;
+	red_potion;
+	blue_potion;
+	red_picolyte;
+	orange_picolyte;
+	yellow_picolyte;
+	green_picolyte;
+	blue_picolyte;
+	white_picolyte
+}
+full_contents ={
+	milk_full;
+	water;
+	mountain_dew;
+	milk_half;
+	fairy;
+	nayru_charm;
 	farore_charm;
 	din_charm;
 	butter;
@@ -183,9 +209,10 @@ function init()
 	print('[Randomized Bottles Contents]: Start generating using seed '.. seed)
 	math.randomseed(seed)
 	-- lua random impentation sucks, if i don't "throw away number" ,the firsts one are alaways the same, no matter the seed...
-	math.random()
-	math.random()
-	math.random()
+	for p=0,10
+	do
+		math.random()
+	end
 	local placed=1;
 
 	local item_placing
@@ -228,8 +255,8 @@ function init()
 end
 
 function getRandomContent()
-	local rd=math.random(1,totalItems)
-	return contents[rd]
+	local rd=math.random(1,#full_contents)
+	return full_contents[rd]
 end
 
 function placeItem(item)
@@ -265,7 +292,7 @@ function canReplace(item_to_place, item_replaced)
 	end
 end
 
-function updateBottles()
+function bottleSanity()
 	for b=1,#bottles
 	do
 		new_content=mrb(bottles[b]["adress"])
@@ -287,34 +314,22 @@ function updateBottles()
 		end
 	end	
 end
--- Same as above, just add random content to new bottles
-function updateRomsBottles()
-	for b=1,#bottles
+
+function randomBottles()
+for b=1,#bottles
 	do
 		new_content=mrb(bottles[b]["adress"])
 		if new_content ~= 0x00 then -- only track bottles that the player have
-			if new_content == 0x20 and bottles[b]["randomized"]-- empty bottle means we have to randomize it's contents
-			then
-				bottles[b]["randomized"]=false
-			end
 			if new_content == 0x20 and bottles[b]["content"]==0x00
 			then
 				mwb(bottles[b]["adress"],getRandomContent()["id"])
 				bottles[b]["randomized"]=true
 			end
-			if new_content == 0x23 and bottles[b]["content"] == 0x22 and bottles[b]["randomized"] -- transition from full milk to half milk mean we have to randomize again
-			then
-			bottles[b]["randomized"]=false
-			end
 			bottles[b]['content']=new_content
-		end
-		if not bottles[b]["randomized"] and new_content <0x32 and new_content > 0x20 --ignore Orange/Yellow/Blue picolyte + Naryu's charm and all the stuff that shouldn't be in bottles
-		then
-			mwb(bottles[b]["adress"],tradTable[new_content])
-			bottles[b]["randomized"]=true
 		end
 	end	
 end
+
 -- make sure that no matter which oracle get a house, the two objects that were randomized to a charm are avilable.
 function charmFix()
 	local house1=mrb(0x02002CA1)

@@ -1,7 +1,11 @@
 # RANDOMIZED BOTTLES CONTENTS
 
 ### Usage
-- Just load **EITHER** RandomisedBottlesContents.lua or RandomBottlesCotents(Rom's variation).lua in your Bizhawk (You can load both at the same time, but your contents are probably going to be randomized twice. ¯\\\_(ツ)\_/¯ )
+- Just load RandomBottlesContents.lua or/and BottleSanity.lua in your Bizhawk.
+
+- RandomBottlesContents.lua will add random content to a bottle when you first get it.
+
+- BottleSanity.lua will randomize the bottle content each time you filled it with something.
 
 ### Notes
 - Water and Crenel cannot be locked behind items. If you find a seed where they are, please send it to me (*Rylux#7414*) on Discord. (Either the seed printed by the script in the lua console at init or the ups patch of your actual rom seed, because...)
