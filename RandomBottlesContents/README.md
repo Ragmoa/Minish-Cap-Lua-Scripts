@@ -18,8 +18,6 @@
 
 - Drinking full milk will give you a randomized content.
 
-- Rom's variation is something *Rom-Steïn* suggested, which is to have your bottles filled with a random content when you first get them
-
 - What's butter? Butter is love, butter is life (especially (s)lightly-salted-one).
 
 ### Thanks
