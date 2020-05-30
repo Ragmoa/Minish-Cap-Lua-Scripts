@@ -2,7 +2,7 @@ require("lib/memories")
 require("lib/RetroModeLib")
 assert(require("config"),"You have an error in your config! Please make sure each line of a table except the last one ends with a ';'")
 
-
+mr16 = memory.read_u16_le
 local last_arrow=mrb(arrow_adress)
 local last_bomb=mrb(bomb_adress)
 while true do
